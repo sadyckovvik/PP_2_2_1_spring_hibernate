@@ -20,14 +20,11 @@ public class UserServiceImp implements UserService {
       userDao.add(user);
    }
 
-   @Transactional(readOnly = true) //метод должен выполняться в транзакции, доступной только для чтения
-   // не будет выполняться никаких операций записи (INSERT, UPDATE, DELETE)
    @Override
    public List<User> listUsers() {
       return userDao.listUsers();
    }
 
-   @Transactional(readOnly = true)
    @Override
    public List<User> getUser(String model, int series) {
       return userDao.getUser(model,series);
