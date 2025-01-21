@@ -30,4 +30,21 @@ public class UserServiceImp implements UserService {
       return userDao.getUser(model,series);
    }
 
+   @Transactional
+   @Override
+   public <T> void addList(List<T> entities) {
+      userDao.addList(entities);
+   }
+
+   @Transactional (readOnly = true)
+   @Override
+   public <T> List<T> getList(Class<T> entityClass) {
+      return userDao.getList(entityClass);
+   }
+
+   @Transactional
+   @Override
+   public <T> void updateList(List<T> entities) {
+      userDao.updateList(entities);
+   }
 }

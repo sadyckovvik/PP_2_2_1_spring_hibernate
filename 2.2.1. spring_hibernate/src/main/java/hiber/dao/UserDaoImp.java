@@ -1,6 +1,7 @@
 package hiber.dao;
 
 import hiber.model.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,4 +36,26 @@ public class UserDaoImp implements UserDao {
       return query.getResultList();
    }
 
+   @Override
+   public <T> void addList(List<T> entities) {
+      Session session = sessionFactory.getCurrentSession();
+      for (T entity : entities) {
+         session.save(entity);
+      }
+   }
+
+   @Override
+   public <T> List<T> getList(Class<T> entityClass) {
+      return sessionFactory.getCurrentSession()
+              .createQuery("FROM " + entityClass.getSimpleName(), entityClass)
+              .getResultList();
+   }
+
+   @Override
+   public <T> void updateList(List<T> entities) {
+      Session session = sessionFactory.getCurrentSession();
+      for (T entity : entities) {
+         session.update(entity);
+      }
+   }
 }
