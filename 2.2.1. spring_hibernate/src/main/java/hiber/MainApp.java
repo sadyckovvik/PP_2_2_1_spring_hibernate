@@ -3,9 +3,9 @@ package hiber;
 import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +17,7 @@ public class MainApp {
                 new AnnotationConfigApplicationContext(AppConfig.class);
 
         UserService userService = context.getBean(UserService.class);
+        CarService carService = context.getBean(CarService.class);
 
         List<User> users = new ArrayList<>(Arrays.asList(
                 new User("User1", "Lastname1", "user1@mail.ru"),
@@ -31,16 +32,18 @@ public class MainApp {
                 new Car("Toyota", 4)));
 
         try {
-         userService.addList(users);
-         userService.addList(cars);
-            List<User> userList = userService.getList(User.class);
-            List<Car> carList = userService.getList(Car.class);
+            userService.addListUser(users);
+            carService.addListCar(cars);
+
+            List<User> userList = userService.listUsers();
+            List<Car> carList = carService.listCar();
             int count = 0;
             for (User user : userList) {
                 if(count < carList.size()) {
                     user.setUserCar(carList.get(count++));
                 }
             }
+
             userService.updateList(userList);
 
 //         for (User user : users) {

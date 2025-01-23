@@ -5,8 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -37,25 +35,18 @@ public class UserDaoImp implements UserDao {
    }
 
    @Override
-   public <T> void addList(List<T> entities) {
+   public void addListUser(List<User> userList) {
       Session session = sessionFactory.getCurrentSession();
-      for (T entity : entities) {
-         session.save(entity);
+      for (User user : userList) {
+         session.save(user);
       }
    }
 
    @Override
-   public <T> List<T> getList(Class<T> entityClass) {
-      return sessionFactory.getCurrentSession()
-              .createQuery("FROM " + entityClass.getSimpleName(), entityClass)
-              .getResultList();
-   }
-
-   @Override
-   public <T> void updateList(List<T> entities) {
+   public void updateList(List<User> userList) {
       Session session = sessionFactory.getCurrentSession();
-      for (T entity : entities) {
-         session.update(entity);
+      for (User user : userList) {
+         session.update(user);
       }
    }
 }

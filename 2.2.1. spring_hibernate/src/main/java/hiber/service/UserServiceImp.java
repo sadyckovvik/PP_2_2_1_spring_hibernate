@@ -20,6 +20,7 @@ public class UserServiceImp implements UserService {
       userDao.add(user);
    }
 
+   @Transactional(readOnly = true)
    @Override
    public List<User> listUsers() {
       return userDao.listUsers();
@@ -32,19 +33,13 @@ public class UserServiceImp implements UserService {
 
    @Transactional
    @Override
-   public <T> void addList(List<T> entities) {
-      userDao.addList(entities);
-   }
-
-   @Transactional (readOnly = true)
-   @Override
-   public <T> List<T> getList(Class<T> entityClass) {
-      return userDao.getList(entityClass);
+   public void addListUser(List<User> userList) {
+      userDao.addListUser(userList);
    }
 
    @Transactional
    @Override
-   public <T> void updateList(List<T> entities) {
-      userDao.updateList(entities);
+   public void updateList(List<User> userList) {
+      userDao.updateList(userList);
    }
 }
